@@ -184,7 +184,7 @@ export default function HomePage() {
                   backgroundClip: 'text',
                   fontFamily: 'Syne, sans-serif',
                 }}>
-                  <span ref={el => statsRef.current[i] = el}>0</span>{stat.suffix}
+                  <span ref={el => {statsRef.current[i] = el}}>0</span>{stat.suffix}
                 </div>
                 <div style={{
                   fontFamily: 'JetBrains Mono, monospace',
