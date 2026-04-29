@@ -226,7 +226,7 @@ export default function AICopilot() {
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontFamily: 'JetBrains Mono, monospace',
                     fontSize: '0.58rem', fontWeight: 700,
-                    background: msg.role === 'ai' || msg.role === 'assistant'
+                    background: msg.role === 'assistant'
                       ? 'linear-gradient(135deg, var(--cyan), var(--purple))'
                       : 'rgba(0,255,136,0.06)',
                     border: msg.role === 'user' ? '1px solid rgba(0,255,136,0.3)' : 'none',
