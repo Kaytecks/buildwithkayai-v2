@@ -21,11 +21,13 @@ export async function POST(req: NextRequest) {
     }
 
     // Track analytics
-    await supabaseAdmin.from('analytics').insert({
-      page: 'ai-copilot',
-      event: 'chat_message',
-      metadata: { message_count: messages.length },
-    }).catch(() => {}) // Don't fail if analytics fails
+    try {
+      await supabaseAdmin.from('analytics').insert({
+        page: 'ai-copilot',
+        event: 'chat_message',
+        metadata: { message_count: messages.length },
+      })
+    } catch {} // Don't fail if analytics fails
 
     // Try Claude first, fall back to Groq
     try {
