@@ -30,23 +30,32 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+
   pages: {
     signIn: '/admin/login',
     error: '/admin/login',
   },
+
   session: {
     strategy: 'jwt',
     maxAge: 24 * 60 * 60,
   },
+
   callbacks: {
     async jwt({ token, user }) {
-      if (user) token.email = user.email
+      if (user) {
+        token.email = user.email
+      }
       return token
     },
+
     async session({ session, token }) {
-      if (token) session.user.email = token.email as string
+      if (session.user && token?.email) {
+        session.user.email = token.email as string
+      }
       return session
     },
   },
+
   secret: process.env.NEXTAUTH_SECRET,
 }
