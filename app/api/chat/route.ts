@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { streamChat } from '@/lib/claude'
 import { groqChat } from '@/lib/groq'
+import { streamChat } from '@/lib/claude'
 import { searchDocuments } from '@/lib/rag'
 import { supabaseAdmin } from '@/lib/supabase'
 
@@ -12,10 +12,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Messages required' }, { status: 400 })
     }
 
-    // Get latest user message for RAG search
+    // RAG search
     const lastUserMessage = messages.filter((m: any) => m.role === 'user').pop()
     let context = ''
-
     if (lastUserMessage) {
       context = await searchDocuments(lastUserMessage.content, 3)
     }
@@ -27,20 +26,21 @@ export async function POST(req: NextRequest) {
         event: 'chat_message',
         metadata: { message_count: messages.length },
       })
-    } catch {} // Don't fail if analytics fails
+    } catch {}
 
-    // Try Claude first, fall back to Groq
+    const encoder = new TextEncoder()
+
+    // Try Groq first (free, fast)
     try {
-      const stream = await streamChat(messages, context)
+      const groqStream = await groqChat(messages, context)
 
-      // Return streaming response
-      const encoder = new TextEncoder()
       const readable = new ReadableStream({
         async start(controller) {
           try {
-            for await (const event of stream) {
-              if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
-                const data = JSON.stringify({ content: event.delta.text })
+            for await (const chunk of groqStream) {
+              const content = chunk.choices[0]?.delta?.content || ''
+              if (content) {
+                const data = JSON.stringify({ content })
                 controller.enqueue(encoder.encode(`data: ${data}\n\n`))
               }
             }
@@ -59,20 +59,18 @@ export async function POST(req: NextRequest) {
           'Connection': 'keep-alive',
         },
       })
-    } catch (claudeError) {
-      console.log('Claude failed, trying Groq fallback...')
+    } catch (groqError) {
+      console.log('Groq failed, trying Claude fallback...')
 
-      // Groq fallback
-      const groqStream = await groqChat(messages, context)
-      const encoder = new TextEncoder()
+      // Claude as fallback
+      const stream = await streamChat(messages, context)
 
       const readable = new ReadableStream({
         async start(controller) {
           try {
-            for await (const chunk of groqStream) {
-              const content = chunk.choices[0]?.delta?.content || ''
-              if (content) {
-                const data = JSON.stringify({ content })
+            for await (const event of stream) {
+              if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
+                const data = JSON.stringify({ content: event.delta.text })
                 controller.enqueue(encoder.encode(`data: ${data}\n\n`))
               }
             }
