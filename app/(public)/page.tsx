@@ -9,7 +9,7 @@ const teaserCards = [
     title: 'The Engineer Behind the Code',
     lines: [
       'Started as Youth Corper. Left as DevOps Engineer.',
-      '3+ years · AWS · UK · MSc Cybersecurity',
+      '3+ years · AWS · MSc Cybersecurity Student · UK',
     ],
     href: '/about',
     color: 'var(--cyan)',
@@ -120,7 +120,7 @@ export default function HomePage() {
             display: 'flex', alignItems: 'center', gap: '10px',
           }}>
             <span style={{ width: '30px', height: '1px', background: 'var(--cyan)', display: 'inline-block' }} />
-            DEVOPS · SRE · CYBERSECURITY · UK
+            DEVOPS · SRE · MSc Cybersecurity Student · UK
           </div>
 
           {/* Headline */}
@@ -156,8 +156,8 @@ export default function HomePage() {
             color: 'var(--muted)', fontSize: '1rem', lineHeight: 1.8,
             maxWidth: '560px', marginBottom: '50px',
           }}>
-            <em style={{ color: 'var(--cyan)', fontStyle: 'normal' }}>3+ years</em> designing, deploying, and securing cloud infrastructure in regulated environments. I turn complex infrastructure problems into elegant, automated,{' '}
-            <em style={{ color: 'var(--cyan)', fontStyle: 'normal' }}>security-first</em> solutions.
+            <em style={{ color: 'var(--cyan)', fontStyle: 'normal' }}>MSc Cybersecurity Student</em> at Teesside University. Deploys secure and scalable cloud infrastructure with security. {' '}
+            <em style={{ color: 'var(--cyan)', fontStyle: 'normal' }}>Exploring AI + security as the next frontier</em> solutions.
           </p>
 
           {/* Buttons */}
