@@ -247,7 +247,7 @@ export default function HomePage() {
               >
                 <div style={{
                   fontFamily: 'JetBrains Mono, monospace',
-                  fontSize: '0.68rem', letterSpacing: '2px',
+                  fontSize: '0.70rem', letterSpacing: '2px',
                   color: card.color, marginBottom: '8px',
                 }}>{card.num}</div>
                 <div style={{
