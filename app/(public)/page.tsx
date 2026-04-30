@@ -287,6 +287,7 @@ export default function HomePage() {
         }
         @media (max-width: 900px) {
           .hide-mobile { display: none !important; }
+          a[style*="width: 62%"] { width: 92% !important; }
         }
       `}</style>
     </main>

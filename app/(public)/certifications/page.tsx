@@ -15,7 +15,7 @@ export default function CertificationsPage() {
       icon: '🎓',
       name: 'MSc Cybersecurity',
       org: 'Teesside University, Middlesbrough, UK',
-      year: 'May 2026 – Expected 2028',
+      year: 'May 2026 – Expected Jan 2028',
       yearColor: 'var(--gold)',
       note: 'AI Research Focus',
       border: 'rgba(255,215,0,0.15)',
@@ -31,7 +31,7 @@ export default function CertificationsPage() {
   ]
 
   const learning = [
-    { icon: '🔐', name: 'MSc Cybersecurity', status: 'In Progress', pct: 70, gradient: 'linear-gradient(90deg, var(--cyan), var(--green))' },
+    { icon: '🔐', name: 'MSc Cybersecurity', status: 'In Progress', pct: 20, gradient: 'linear-gradient(90deg, var(--cyan), var(--green))' },
     { icon: '☁️', name: 'AWS Solutions Architect', status: 'Studying', pct: 45, gradient: 'linear-gradient(90deg, var(--gold), #ff6b35)' },
     { icon: '⚓', name: 'Kubernetes CKA', status: 'Studying', pct: 30, gradient: 'linear-gradient(90deg, var(--purple), var(--cyan))' },
     { icon: '🧠', name: 'AI + Security Research', status: 'Exploring', pct: 20, gradient: 'linear-gradient(90deg, var(--pink), var(--purple))' },

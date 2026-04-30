@@ -36,7 +36,7 @@ export default function AboutPage() {
           {/* Text */}
           <div>
             <p style={{ color: 'var(--muted)', fontSize: '1rem', lineHeight: 1.9, marginBottom: '18px' }}>
-              I'm <strong style={{ color: 'var(--text)' }}>Kehinde Afolarin Oyekunle</strong> — a DevOps & Site Reliability Engineer who started as a <strong style={{ color: 'var(--text)' }}>Youth Corper</strong> walking into a Data Centre in Lagos with nothing but curiosity and a hunger to learn.
+              <strong style={{ color: 'var(--text)' }}>Kehinde Afolarin Oyekunle</strong> — a DevOps & Site Reliability Engineer who started as a <strong style={{ color: 'var(--text)' }}>Youth Corper</strong> walking into a Data Centre in Lagos with nothing but curiosity and a hunger to learn.
             </p>
             <p style={{ color: 'var(--muted)', fontSize: '1rem', lineHeight: 1.9, marginBottom: '18px' }}>
               3+ years later, I had built production systems from scratch, passed ISO audits, automated infrastructure, deployed applications used by entire organisations daily, and led a team of 6 engineers.
@@ -54,7 +54,7 @@ export default function AboutPage() {
               Now based in <strong style={{ color: 'var(--text)' }}>Middlesbrough, UK</strong>, I'm pursuing an <strong style={{ color: 'var(--text)' }}>MSc in Cybersecurity</strong> at Teesside University — exploring the intersection of <strong style={{ color: 'var(--text)' }}>AI and Cybersecurity</strong> as my research focus.
             </p>
             <p style={{ color: 'var(--muted)', fontSize: '1rem', lineHeight: 1.9 }}>
-              I'm actively seeking <strong style={{ color: 'var(--text)' }}>remote DevOps, SRE, or Cloud Infrastructure</strong> opportunities with global companies — contractor, freelance, or full-time.
+              I'm actively seeking <strong style={{ color: 'var(--text)' }}>remote DevOps, SRE, or Cloud Infrastructure</strong> opportunities with global companies.
             </p>
           </div>
 

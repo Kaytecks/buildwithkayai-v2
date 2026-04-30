@@ -37,10 +37,10 @@ export default function ContactPage() {
   ]
 
   const openTo = [
-    'Remote DevOps / SRE roles worldwide',
-    'Cloud Infrastructure contracts (Outside IR35)',
-    'US / EU / Global contractor positions',
-    'Part-time freelance DevOps projects',
+    'DevOps / SRE roles worldwide',
+    'Cloud Infrastructure contracts',
+    'US / EU / Global positions',
+    'DevOps projects',
     'Cybersecurity & AI research collaborations',
   ]
 
