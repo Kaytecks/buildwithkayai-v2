@@ -4,8 +4,8 @@ export const metadata: Metadata = {
   title: 'BuildWithKayAI | Kehinde Oyekunle — DevOps & SRE Engineer',
   description: 'DevOps & SRE Engineer with 3+ years building scalable, secure cloud infrastructure. AWS, Terraform, Kubernetes, ISO 27001. Open to remote opportunities worldwide.',
   openGraph: {
-    title: 'BuildWithKayAI | Kehinde Oyekunle',
-    description: 'DevOps & SRE Engineer. Building secure, scalable cloud infrastructure.',
+    title: 'BuildWithKayAI | Kehinde Oyekunle | MSc Cybersecurity',
+    description: 'DevOps Engineer. Building secure, scalable cloud infrastructure.',
     url: 'https://www.buildwithkayai.com',
     siteName: 'BuildWithKayAI',
   },
