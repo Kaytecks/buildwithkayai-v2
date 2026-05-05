@@ -81,7 +81,7 @@ export default function ProjectsPage() {
               }} />
 
               <div style={{
-                fontSize: '4rem', fontWeight: 900,
+                fontSize: 'clamp(2rem, 6vw, 4rem)', fontWeight: 900,
                 color: 'rgba(0,245,255,0.05)', lineHeight: 1,
                 marginBottom: '16px', fontFamily: 'Syne, sans-serif',
               }}>{p.num}</div>
@@ -93,7 +93,7 @@ export default function ProjectsPage() {
               }}>{p.badge}</div>
 
               <h3 style={{
-                fontFamily: 'Syne, sans-serif', fontSize: '1.4rem',
+                fontFamily: 'Syne, sans-serif', fontSize: 'clamp(1rem, 3vw, 1.4rem)',
                 fontWeight: 800, letterSpacing: '-0.3px',
                 marginBottom: '10px', lineHeight: 1.2,
               }}>{p.title}</h3>
