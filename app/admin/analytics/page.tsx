@@ -1,3 +1,4 @@
+'use client'
 import { requireAdmin } from '@/lib/auth'
 import { supabaseAdmin } from '@/lib/supabase'
 
