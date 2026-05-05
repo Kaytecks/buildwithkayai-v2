@@ -63,7 +63,7 @@ export default function ProjectsPage() {
         <div className="s-label">// WHAT I'VE BUILT</div>
         <h2 className="s-h">Featured <em>Projects</em></h2>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1px', background: 'var(--border)' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 500px), 1fr))', gap: '1px', background: 'var(--border)' }}>
           {projects.map((p, i) => (
             <div key={i} style={{
               background: 'var(--bg)', padding: '42px',
