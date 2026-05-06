@@ -1,11 +1,11 @@
-import { supabase } from '@/lib/supabase'
+import { supabaseAdmin } from '@/lib/supabase'
 import Link from 'next/link'
 import SubscribeForm from './SubscribeForm'
 
 export const revalidate = 60 // revalidate every 60 seconds
 
 export default async function LogsPage() {
-  const { data: logs } = await supabase
+  const { data: logs } = await supabaseAdmin
     .from('logs')
     .select('id, title, slug, excerpt, cover_image, tags, linkedin_url, created_at, reading_time')
     .eq('status', 'published')

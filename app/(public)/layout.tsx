@@ -3,13 +3,17 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'BuildWithKayAI | Kehinde Oyekunle — DevOps & SRE Engineer',
   description: 'DevOps & SRE Engineer with 3+ years building scalable, secure cloud infrastructure. AWS, Terraform, Kubernetes, ISO 27001. Open to remote opportunities worldwide.',
-  viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0',
   openGraph: {
     title: 'BuildWithKayAI | Kehinde Oyekunle | MSc Cybersecurity',
     description: 'DevOps Engineer. Building secure, scalable cloud infrastructure.',
     url: 'https://www.buildwithkayai.com',
     siteName: 'BuildWithKayAI',
   },
+}
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
 }
 
 import Navigation from '@/components/shared/Navigation'
