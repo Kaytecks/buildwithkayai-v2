@@ -1,17 +1,20 @@
 'use client'
-import { requireAdmin } from '@/lib/auth'
-import { supabaseAdmin } from '@/lib/supabase'
 
-export default async function SubscribersPage() {
-  await requireAdmin()
+import { useState, useEffect } from 'react'
 
-  const { data: subscribers } = await supabaseAdmin
-    .from('subscribers')
-    .select('*')
-    .order('subscribed_at', { ascending: false })
+export default function SubscribersPage() {
+  const [subscribers, setSubscribers] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
 
-  const active = subscribers?.filter(s => !s.unsubscribed) || []
-  const inactive = subscribers?.filter(s => s.unsubscribed) || []
+  useEffect(() => {
+    fetch('/api/admin/subscribers')
+      .then(r => r.json())
+      .then(data => { setSubscribers(data.subscribers || []); setLoading(false) })
+      .catch(() => setLoading(false))
+  }, [])
+
+  const active = subscribers.filter(s => !s.unsubscribed)
+  const inactive = subscribers.filter(s => s.unsubscribed)
 
   return (
     <main style={{ padding: '40px', maxWidth: '1000px', margin: '0 auto' }}>
@@ -25,9 +28,9 @@ export default async function SubscribersPage() {
       {/* Stats */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1px', background: 'var(--border)', marginBottom: '40px' }}>
         {[
-          { label: 'TOTAL', value: subscribers?.length || 0, color: 'var(--cyan)' },
-          { label: 'ACTIVE', value: active.length, color: 'var(--green)' },
-          { label: 'UNSUBSCRIBED', value: inactive.length, color: 'var(--muted)' },
+          { label: 'TOTAL', value: loading ? '...' : subscribers.length, color: 'var(--cyan)' },
+          { label: 'ACTIVE', value: loading ? '...' : active.length, color: 'var(--green)' },
+          { label: 'UNSUBSCRIBED', value: loading ? '...' : inactive.length, color: 'var(--muted)' },
         ].map((stat, i) => (
           <div key={i} style={{ background: 'var(--bg)', padding: '24px', textAlign: 'center' }}>
             <div style={{ fontFamily: 'Syne, sans-serif', fontSize: '2.5rem', fontWeight: 900, color: stat.color }}>{stat.value}</div>
@@ -36,54 +39,43 @@ export default async function SubscribersPage() {
         ))}
       </div>
 
-      {/* Subscribers Table */}
+      {/* Table */}
       <div style={{ border: '1px solid var(--border)' }}>
         <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)', background: 'rgba(0,245,255,0.02)', display: 'grid', gridTemplateColumns: '1fr 140px 140px 80px' }}>
-          {['EMAIL', 'SUBSCRIBED', 'STATUS', ''].map((h, i) => (
+          {['EMAIL', 'SUBSCRIBED', 'STATUS', 'UNSUB DATE'].map((h, i) => (
             <div key={i} style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.62rem', letterSpacing: '2px', color: 'var(--muted)' }}>{h}</div>
           ))}
         </div>
 
-        {subscribers && subscribers.length > 0 ? subscribers.map((sub, i) => (
-          <div key={sub.id} style={{
-            display: 'grid', gridTemplateColumns: '1fr 140px 140px 80px',
-            padding: '14px 20px', borderBottom: i < subscribers.length - 1 ? '1px solid var(--border)' : 'none',
-            alignItems: 'center',
-          }}>
+        {loading ? (
+          <div style={{ padding: '40px', textAlign: 'center', color: 'var(--muted)', fontFamily: 'JetBrains Mono, monospace', fontSize: '0.72rem' }}>LOADING...</div>
+        ) : subscribers.length > 0 ? subscribers.map((sub, i) => (
+          <div key={sub.id} style={{ display: 'grid', gridTemplateColumns: '1fr 140px 140px 80px', padding: '14px 20px', borderBottom: i < subscribers.length - 1 ? '1px solid var(--border)' : 'none', alignItems: 'center' }}>
             <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.82rem' }}>{sub.email}</div>
             <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.65rem', color: 'var(--muted)' }}>
               {new Date(sub.subscribed_at).toLocaleDateString('en-GB')}
             </div>
             <div>
-              <span style={{
-                fontFamily: 'JetBrains Mono, monospace', fontSize: '0.62rem',
-                padding: '3px 10px', border: '1px solid',
-                borderColor: sub.unsubscribed ? 'var(--border)' : 'rgba(0,255,136,0.3)',
-                color: sub.unsubscribed ? 'var(--muted)' : 'var(--green)',
-                background: sub.unsubscribed ? 'transparent' : 'rgba(0,255,136,0.06)',
-              }}>
+              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.62rem', padding: '3px 10px', border: '1px solid', borderColor: sub.unsubscribed ? 'var(--border)' : 'rgba(0,255,136,0.3)', color: sub.unsubscribed ? 'var(--muted)' : 'var(--green)', background: sub.unsubscribed ? 'transparent' : 'rgba(0,255,136,0.06)' }}>
                 {sub.unsubscribed ? 'UNSUBSCRIBED' : 'ACTIVE'}
               </span>
             </div>
             <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.62rem', color: 'var(--muted)' }}>
-              {sub.unsubscribed && sub.unsubscribed_at
-                ? new Date(sub.unsubscribed_at).toLocaleDateString('en-GB')
-                : '—'}
+              {sub.unsubscribed && sub.unsubscribed_at ? new Date(sub.unsubscribed_at).toLocaleDateString('en-GB') : '—'}
             </div>
           </div>
         )) : (
-          <div style={{ padding: '40px', textAlign: 'center', color: 'var(--muted)', fontFamily: 'JetBrains Mono, monospace', fontSize: '0.75rem' }}>
-            No subscribers yet
-          </div>
+          <div style={{ padding: '40px', textAlign: 'center', color: 'var(--muted)', fontFamily: 'JetBrains Mono, monospace', fontSize: '0.75rem' }}>No subscribers yet</div>
         )}
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         @media (max-width: 900px) {
           main { padding: 20px !important; }
-          div[style*="repeat(3, 1fr)"] { grid-template-columns: 1fr 1fr 1fr !important; }
+          div[style*="repeat(3, 1fr)"] { grid-template-columns: 1fr !important; }
+          div[style*="1fr 140px 140px 80px"] { grid-template-columns: 1fr 100px !important; }
         }
-      `}</style>
+      `}} />
     </main>
   )
 }
