@@ -12,7 +12,11 @@ export async function GET() {
       .order('created_at', { ascending: false })
 
     if (error) throw error
-    return NextResponse.json({ logs: logs || [] })
+
+    return NextResponse.json(
+      { logs: logs || [] },
+      { headers: { 'Cache-Control': 'no-store, max-age=0' } }
+    )
   } catch (error) {
     console.error('Public logs error:', error)
     return NextResponse.json({ logs: [] })
