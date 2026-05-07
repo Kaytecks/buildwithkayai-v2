@@ -9,7 +9,7 @@ export default function LogsPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('/api/public/logs')
+    fetch('/api/public/logs?t=${Date.now()}')
       .then(r => r.json())
       .then(data => { setLogs(data.logs || []); setLoading(false) })
       .catch(() => setLoading(false))
