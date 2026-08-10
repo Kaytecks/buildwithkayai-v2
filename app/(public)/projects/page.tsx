@@ -15,7 +15,7 @@ type Project = {
 }
 
 export default function ProjectsPage() {
-  const [filter, setFilter] = useState<'All' | 'DevOps' | 'Security'>('All')
+  const [filter, setFilter] = useState<'DevOps' | 'Security'>('DevOps')
 
   const projects: Project[] = [
     {
@@ -74,11 +74,11 @@ export default function ProjectsPage() {
     },
   ]
 
-  const tabs: ('All' | 'DevOps' | 'Security')[] = ['All', 'DevOps', 'Security']
-  const countFor = (t: 'All' | 'DevOps' | 'Security') =>
-    t === 'All' ? projects.length : projects.filter(p => p.categories.includes(t)).length
+  const tabs: ('DevOps' | 'Security')[] = ['DevOps', 'Security']
+  const countFor = (t: 'DevOps' | 'Security') =>
+    projects.filter(p => p.categories.includes(t)).length
 
-  const visible = filter === 'All' ? projects : projects.filter(p => p.categories.includes(filter))
+  const visible = projects.filter(p => p.categories.includes(filter))
 
   const archCols = [
     { label: 'CLIENT', items: ['Web Portal', 'Mobile'], type: 'ac' },
@@ -110,7 +110,7 @@ export default function ProjectsPage() {
         }}>
           {tabs.map(t => {
             const active = filter === t
-            const accent = t === 'Security' ? 'var(--green)' : t === 'DevOps' ? 'var(--cyan)' : 'var(--fg, #fff)'
+            const accent = t === 'Security' ? 'var(--green)' : 'var(--cyan)'
             return (
               <button
                 key={t}
@@ -159,7 +159,7 @@ export default function ProjectsPage() {
                 fontSize: 'clamp(2rem, 6vw, 4rem)', fontWeight: 900,
                 color: 'rgba(0,245,255,0.08)', lineHeight: 1,
                 marginBottom: '16px', fontFamily: 'Syne, sans-serif',
-              }}>{p.num}</div>
+              }}>{String(i + 1).padStart(2, '0')}</div>
 
               <div style={{
                 fontFamily: 'JetBrains Mono, monospace', fontSize: '0.62rem',
