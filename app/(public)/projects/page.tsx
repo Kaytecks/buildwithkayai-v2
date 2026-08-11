@@ -35,7 +35,7 @@ export default function ProjectsPage() {
       badge: '● LIVE · COMPLIANCE-FIRST DESIGN',
       badgeColor: 'var(--green)',
       title: 'Secure File Share Platform',
-      desc: 'Built an internal secure file-sharing system inside a regulated data centre, with every transfer meeting ISO 27001 and PCI DSS. Designed the access controls and encryption so there were no compliance gaps to close later.',
+      desc: 'Built an internal secure file sharing system inside a regulated data centre, with every transfer meeting ISO 27001 and PCI DSS. Designed the access controls and encryption so there were no compliance gaps to close later.',
       kpis: [{ v: '100%', l: 'COMPLIANT' }, { v: 'ISO', l: 'CERTIFIED' }],
       stack: ['AWS S3', 'IAM Policies', 'Encryption', 'Python', 'PCI DSS', 'VPC'],
       categories: ['DevOps', 'Security'],
@@ -85,22 +85,8 @@ export default function ProjectsPage() {
 
   const visible = projects.filter(p => p.categories.includes(filter))
 
-  const archCols = [
-    { label: 'CLIENT', items: ['Web Portal', 'Mobile'], type: 'ac' },
-    { label: 'COMPUTE', items: ['ECS Fargate', 'EC2'], type: 'ag' },
-    { label: 'MESSAGING', items: ['AWS SNS', 'SQS'], type: 'ap' },
-    { label: 'STORAGE', items: ['S3 Buckets', 'RDS'], type: 'ao' },
-    { label: 'OBSERVABILITY', items: ['Prometheus', 'Grafana'], type: 'ac' },
-  ]
 
-  const archColors: Record<string, string> = {
-    ac: 'var(--cyan)', ag: 'var(--green)', ap: '#a78bfa', ao: '#ff8c6b',
-  }
 
-  const archBorders: Record<string, string> = {
-    ac: 'rgba(0,245,255,0.2)', ag: 'rgba(0,255,136,0.2)',
-    ap: 'rgba(139,92,246,0.3)', ao: 'rgba(255,107,53,0.3)',
-  }
 
   return (
     <main style={{ position: 'relative', zIndex: 1 }}>
@@ -250,52 +236,22 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      {/* Architecture Diagram */}
-      <div style={{ background: 'var(--bg)', borderTop: '1px solid var(--border)', padding: '50px 60px' }}>
+      {/* Capabilities strip */}
+      <div style={{
+        background: 'var(--bg)', borderTop: '1px solid var(--border)',
+        padding: '30px 60px',
+      }}>
         <div style={{
-          fontFamily: 'JetBrains Mono, monospace', fontSize: '0.62rem',
-          letterSpacing: '4px', color: 'var(--muted)', marginBottom: '32px',
-        }}>// ARCHITECTURE · VISITOR MANAGEMENT SYSTEM (PROJECT 01, AWS)</div>
-
-        <div style={{
-          display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)',
-          position: 'relative',
-        }}>
-          {/* Connection line */}
-          <div style={{
-            position: 'absolute', top: '50%', left: '5%', right: '5%', height: '1px',
-            background: 'linear-gradient(90deg, transparent, rgba(0,245,255,0.15), rgba(139,92,246,0.15), rgba(0,255,136,0.15), transparent)',
-          }} />
-
-          {archCols.map((col, i) => (
-            <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', padding: '0 6px' }}>
-              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.56rem', letterSpacing: '2px', color: 'var(--muted)', marginBottom: '8px', textAlign: 'center' }}>
-                {col.label}
-              </div>
-              {col.items.map((item, j) => (
-                <div key={j} style={{
-                  width: '100%', padding: '9px 6px', textAlign: 'center',
-                  fontFamily: 'JetBrains Mono, monospace', fontSize: '0.63rem',
-                  border: `1px solid ${archBorders[col.type]}`,
-                  color: archColors[col.type],
-                  background: `${archColors[col.type]}08`,
-                  transition: 'all 0.3s', cursor: 'default',
-                }}
-                  onMouseEnter={e => (e.currentTarget as HTMLDivElement).style.transform = 'scale(1.05)'}
-                  onMouseLeave={e => (e.currentTarget as HTMLDivElement).style.transform = 'scale(1)'}
-                >
-                  {item}
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-
-        {/* Badges */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginTop: '24px', paddingTop: '20px', borderTop: '1px solid var(--border)' }}>
-          {['IAM Least Privilege', 'PCI DSS Compliant', 'ISO 27001 Aligned', 'DR Strategy Implemented', 'Terraform Provisioned', 'Backup Automated'].map((badge, i) => (
-            <div key={i} style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.65rem', color: 'var(--muted)', display: 'flex', alignItems: 'center', gap: '5px' }}>
-              <span style={{ color: 'var(--green)' }}>✓</span>{badge}
+          fontFamily: 'JetBrains Mono, monospace', fontSize: '0.6rem',
+          letterSpacing: '4px', color: 'var(--muted)', marginBottom: '20px',
+        }}>// HOW I WORK</div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px 22px' }}>
+          {['IAM Least Privilege', 'PCI DSS', 'ISO 27001', 'MITRE ATT&CK', 'Detection Engineering', 'Threat Hunting', 'Infrastructure as Code', 'Disaster Recovery'].map((cap, i) => (
+            <div key={i} style={{
+              fontFamily: 'JetBrains Mono, monospace', fontSize: '0.68rem',
+              color: 'var(--muted)', display: 'flex', alignItems: 'center', gap: '6px',
+            }}>
+              <span style={{ color: 'var(--green)' }}>✓</span>{cap}
             </div>
           ))}
         </div>
@@ -305,8 +261,7 @@ export default function ProjectsPage() {
         @media (max-width: 900px) {
           section { padding-left: 18px !important; padding-right: 18px !important; }
           div[style*="repeat(2, 1fr)"] { grid-template-columns: 1fr !important; }
-          div[style*="repeat(5, 1fr)"] { grid-template-columns: repeat(3, 1fr) !important; }
-          div[style*="padding: 50px 60px"] { padding: 30px 18px !important; }
+          div[style*="padding: 30px 60px"] { padding: 24px 18px !important; }
         }
       `}</style>
     </main>
